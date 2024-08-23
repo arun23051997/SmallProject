@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+	
+    <title>Guess The Word</title>
+	
+</head>
+
+<body>
+    <h1 align="center">Welcome to My Gaming</h1>
+	<h2 align="center" th:text="${wordDisplay}">Show Random Word</h2>
+	
+	<h2 align="right" th:text=" ' Tries Remainning : ' +${triesleft}">......</h2>
+	
+	<div class = "checkdive" style = "background-color: red;">
+		<h3 style="color:red;" align="center" th:text="${error}">......</h3>
+		<h1 style="color:green;" align="center" th:text="${correct}">......</h1>
+		<h1 style="color:orange;" align="center" th:text="${wrong}">......</h1>
+	</div>
+	<hr/>
+	
+	<div class = "usernametag">
+ <h2 style="color:rgb(128, 0, 255);" align="left" id="displayUsername"></h2>	</div>
+	
+	
+	<hr/>
+	<input style="float:right; background-color: red;" type="button" value="reload" id = "reload" onclick="reloadScript();"></input>
+	<div align="center">
+	    <form action="gamehome" method="GET">
+	        <label>Guess a char :</label>
+	        <input type="text" name="guessedChar1" id ="guessedChar1"/>
+	        <input type="submit" onclick = "gg()" value="Try" id = "try">
+	    </form>
+	</div>
+
+	
+	</div>
+	<script th:inline = "javascript">
+		
+		
+		
+			function getUserInput() {
+			  
+			   let  username = prompt("Please enter your username:", "Guest");
+			    
+				
+			    if (username !== null && username !== "") {
+			      
+			        alert("Hello, " + username + "!");
+			        document.getElementById("displayUsername").innerHTML = "Welcome, " + username + "!";
+			    } else {
+			  
+			        alert("No username provided.");
+			    }
+			}
+
+			if(window.location.href === "http://localhost:8080/gamehome"){
+				
+				window.onload = getUserInput();
+				
+			}
+
+			
+			      
+			
+			window.onload = function checkIfGameOver(){
+				
+				var numberofTriesRemaining = [[${triesleft}]];
+				
+				if(numberofTriesRemaining ===0){
+					alert("Game Over");
+					document.getElementById('guessedChar1').disabled = true;
+					document.getElementById('try').disabled = true;
+				}
+			}
+			
+			function reloadScript(){
+				window.location.href = "http://localhost:8080/reload";
+			}
+		</script>
+		
+</body>
+</html>
